@@ -1,0 +1,66 @@
+{
+  "targetMapset": "bb_prognosis",
+  "outputPrefix": "p1",
+
+  "yearFrom": 2011,
+  "yearTo": 2012,
+  "yearPrognosis": 2013,
+
+  "debugOn": false,
+
+  "_methods": [51, 52, 53, 54, 55, 56, 58, 60, 62, 64],
+  "_layers": ["bb_xdst_%Y@forest", "us50dst_%Y@forest", "psr_y@solar", "ndvi_%Y@landsat", "s50age@forest", "s50perc@forest", "s50volha@forest", "s50dens@forest"],
+  
+  "samples": {
+      "presenceMulti": 5,
+      "absenceMulti": 5,
+      "trainingSetPerc": 0.75,
+      "layers": ["bb_xdst_%Y@forest", "us50dst_%Y@forest", "psr_y@solar", "ndvi_%Y@landsat", "s50age@forest", "s50perc@forest", "s50volha@forest", "s50dens@forest"],
+      "fields": ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8"]
+  },
+  
+  "initModel": {
+    "_c1": "1:linear regression, 2:resistance, 3:parallel piped",
+    "_ml_1": "51:logistic regression, 52:linear discriminant analysis, 53: quadratic discriminant analysis, 54:k-neighbors classifier",
+    "_ml_2": "55:Gaussian NB, 56:decision tree classifier, 57: decision tree regressor, 58: random forest classifier",
+    "_ml_3": "59: random forest regressor, 60: extra trees classifier, 61: extra trees regressor, 62: gradient boosting classifier",
+    "_ml_4": "63: gradient boosting regressor, 64: SVC, 65: Earth classifier, 66: Earth regressor",
+    "method": 60,
+    "layers": [ "bb_xdst_%Y@forest", "us50dst_%Y@forest", "psr_y@solar", "ndvi_%Y@landsat", "s50age@forest", "s50perc@forest", "s50volha@forest", "s50dens@forest" ],
+    "trainingMethods": [ 51 ],
+    "trainingLayers": [ "bb_xdst_%Y@forest", "us50dst_%Y@forest" ],
+    "trainingYears": 1,
+    "fields": [],
+    "applyHSM": 1
+  },
+
+  "spreadModel": {
+    "method": 60,
+    "layers": [ "bb_xdst_%Y@forest", "us50dst_%Y@forest", "psr_y@solar", "ndvi_%Y@landsat", "s50age@forest", "s50perc@forest", "s50volha@forest", "s50dens@forest" ],
+    "trainingMethods": [ 52 ],
+    "trainingLayers": [ "bb_xdst_%Y@forest", "us50dst_%Y@forest" ],
+    "trainingYears": 1,
+    "fields": [],
+    "applyHSM": 1
+  },
+
+  "attackModel": {
+    "_c2": "201:max, 202:min, 203:mult, 204:avg",
+    "method": 60,
+    "layers": [ "bb_xdst_%Y@forest", "us50dst_%Y@forest", "psr_y@solar", "ndvi_%Y@landsat", "s50age@forest", "s50perc@forest", "s50volha@forest", "s50dens@forest" ],
+    "trainingMethods": [ 54, 55 ],
+    "trainingLayers": [ "bb_xdst_%Y@forest", "us50dst_%Y@forest" ],
+    "trainingYears": 1,
+    "applyHSM": 1
+  },
+
+  "spotPrognosis": {
+    "_c1": "301:max probability, 302:random to distance, 303:random growing, 304:attack to distance, 305:per partes",
+    "method": 301,
+    "maxDistance": 600.0,
+    "initMethod": 301,
+    "initMaxDistance": 600.0,
+    "spreadMethod": 301,
+    "spreadMaxDistance": 100.0
+  }
+}
