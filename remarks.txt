@@ -1,0 +1,29 @@
+Ver 1.26
+_calcMachineLearning reverted to use raster samples.
+Flag -b used to balance samples.
+Original rasters used instead of normalized ones.
+
+
+Ver 1.25
+_calcMachineLearning changed to use vector samples.
+Problem with oversampled presence points occured.
+r.learn.ml cannot accepted multiple points.
+Procedure _getTrainingSamples created. Generates vector training samples for specified training years.
+
+
+Ver 1.24
+Updated samples generator.
+Presence and absence samples are unique for all years.
+They can be combined/accumulated without loss of samples.
+
+Control set contains equal number of absence and presence points. 
+Number of control points is (1-trainingPercentage)*nSpots.
+
+Training set contains equal number of absence and presence points, but multiplied by a given coefficient.
+Number of training points is multiplicator*trainingPercentage*nSpots.
+Oversampling of presence points is used in training vector samples.
+Trainig vector files contain duplicated (oversampled) presence samples.
+Raster samples files cannot contain duplicates.
+
+Samples export was updated.
+Control and training samples are exported to CSV files.
