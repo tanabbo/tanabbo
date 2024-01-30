@@ -87,10 +87,21 @@ airTemperatureFN = "md_tmean_di.txt"
 riskDIPrefix = "risk_di_d"
 riskCDEFPrefix = "risk_cdef_d"
 
+# forecast hydro mapset, drought index
+diForecastPrefix = "_forecast_di_d"
+deficitForecastPrefix = "_forecast_def_d"
+cumDefForecastPrefix = "_forecast_cdef_d"
+solarRadiationForecast = "md_gsr_forecast.txt"
+realPrecipitationForecast = "md_prec_forecast.txt"
+airTemperatureForecast = "md_tmean_forecast.txt"
+riskForecastCDEFPrefix = "_forecast_risk_cdef_d"
+
 # air temperature prefix
 atMapset = "temperature_air"
 atMeanPrefix = "at_mean_d"
 atMaxPrefix = "at_max_d"
+ForecastMeanPrefix = "_forecast_mean_d"
+ForecastMaxPrefix = "_forecast_max_d"
 
 # bark temperature
 btMapset = "temperature_bark"
@@ -98,11 +109,19 @@ btMeanPrefix = "bt_mean_d"
 btMaxPrefix = "bt_max_d"
 btEffPrefix = "bt_eff_d"
 
+# forecast bark temperature
+ForecastbtMeanPrefix = "_forecast_bt_mean_d"
+ForecastbtMaxPrefix = "_forecast_bt_max_d"
+ForecastbtEffPrefix = "_forecast_bt_eff_d"
+
 # shp mapset
 shpMapset = "shp"
 shpMeteostation = "meteo_station"
 shpMeteostationValField = "val"
 shpBBTrap = "bbtrap"
+
+# samples mapset
+samplesMapset = "forest"
 
 # dem mapset
 demMapset = "dem"
@@ -119,13 +138,23 @@ phenipsInfestationDDThreshold = 140
 phenipsFromDay = 92     #01.04. / 92
 phenipsToDay = 304      #30.09. / 274        30.10. / 304
 phenipsSwarmingName = "_swarming"
+phenipsRealSwarmingName = "_real_swarming"
+phenipsForecastSwarmingName = "_forecast_swarming_trap_installation"
+phenipsForecast2SwarmingName = "_forecast_swarming"
 phenipsInfestationName = "_infestation"
+phenipsForecastInfestationName = "_forecast_infestation"
 phenipsInfestationSpan = "_infestation_span"
+phenipsForecastInfestationSpan = "_forecast_infestation_span"
 phenipsDevelopmentName = "_development"
 phenipsDevelopmentSpanName = "_development_span"
+phenipsForecastDevelopmentName = "_forecast_development"
+phenipsForecastDevelopmentSpanName = "_forecast_development_span"
 phenipsStagePrefix = "stage_d"
+phenipsForecastStagePrefix = "_forecast_stage_d"
 phenipsATDDPrefix = "at_dd_d"
+phenipsFORECASTDDPrefix = "_forecast_dd_d"
 phenipsBTDDPrefix = "bt_dd_d"
+phenipsFORECASTBTDDPrefix = "_foreast_bt_dd_d"
 phenipsDevelopmentSumThreshold = 557
 
 # garray3D
@@ -141,11 +170,12 @@ def doneMessage():
 
 
 def debugMessage(msg, printMessage=False):
-    if (printMessage):
-        grass.message(msg)
-    else:
-        if (DEBUG_ON):
-            grass.message("DEBUG: " + msg)
+    if (msg is not None):
+        if (printMessage):
+            grass.message(msg)
+        else:
+            if (DEBUG_ON):
+                grass.message("DEBUG: " + msg)
 
 
 def setDebug(project=None):
@@ -157,17 +187,20 @@ def setDebug(project=None):
 
 
 def errorMessage(msg):
-    grass.message("ERROR: " + msg)
+    if (msg is not None):
+        grass.message("ERROR: " + msg)
 
 
 def warningMessage(msg):
-    grass.message("WARNING: " + msg)
+    if (msg is not None):
+        grass.message("WARNING: " + msg)
 
 
 def logMessage(msg, logFile=None):
-    grass.message(msg)
-    if (logFile):
-        logFile.writelines(msg + "\n")
+    if (msg is not None):
+        grass.message(msg)
+        if (logFile):
+            logFile.writelines(msg + "\n")
 
 
 def deleteFile(fileName):
