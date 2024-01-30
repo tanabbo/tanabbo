@@ -1,3 +1,6 @@
+Ver 1.27.1
+2 new modules added for the temporal and spatial optimisation of pheromone traps and anti-attractants
+
 Ver 1.26
 _calcMachineLearning reverted to use raster samples.
 Flag -b used to balance samples.
